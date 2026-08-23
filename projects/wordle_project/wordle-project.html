@@ -1,1 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
 
+    <title>Dave Lee - Wordle Solver</title>
+
+    <!-- css style formats -->
+    <style>
+        :root {
+            --background: #0b0d0f;
+            --panel: #111417;
+            --panel-2: #15191d;
+            --border: #272c31;
+            --text: #f1f3f5;
+            --muted: #8b949e;
+            --accent: #7dd3fc;
+            --green: #86efac;
+            --purple: #c4b5fd;
+            --orange: #fdba74;
+            --red: #ea4335;
+            --pink: #e1306c;
+            --blurple: #5865f2;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            font-family: "Inter", sans-serif;
+            line-height: 1.6;
+        }
+
+        
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 6%;
+            border-bottom: 1px solid var(--border);
+            background-color: var(--panel);
+            backdrop-filter: blur(14px);
+        }
+
+        .nav-name {
+            font-family: "JetBrains Mono", monospace;
+            font-size: 14px;
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .nav-links a {
+            color: var(--muted);
+            text-decoration: none;
+        }
+
+        .nav-links a:hover {
+            color: var(--text)
+        }
+
+
+        .section-label {
+            font-family: "JetBrains Mono", monospace;
+            font-size: 12px;
+            color: var(--green);
+            margin-bottom: 28px;
+        }
+
+        .accent-text {
+            color: var(--accent)
+        }
+
+        h1 {
+            font-size: clamp(48px, 7vh, 92px);
+            line-height: 1;
+            max-width: 800px;
+            margin-bottom: 28px;
+        }
+
+        h2 {
+            font-size: clamp(34px, 5vw, 58px);
+        }
+
+        p {
+            color: var(--muted);
+            text-decoration: none;
+        }
+
+        .button {
+            transition: 0.2s;
+        }
+
+        .button:hover {
+            border-color: #48515a;
+            transform: translateY(-4px);
+        }
+
+        
+
+
+        .introduction {
+            padding: 100px 6%;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .introduction-description {
+            grid-column: 1 / -1;
+        }
+
+        .code-window {
+            border: 1px solid var(--border);
+            background-color: var(--panel);
+            margin: 5px 6%;
+        }
+
+        .code-window-top {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .code-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #444;
+        }
+
+        .code-filename {
+            margin-left: 8px;
+            color: var(--muted);
+            font: 11px "JetBrains Mono", monospace;
+        }
+
+        .code-text {
+            font-family: "JetBrains Mono", monospace;
+            font-size: 14px;
+            color: var(--text);
+        }
+
+        .code-class {
+            color: var(--purple);
+        }
+
+        .code-classname {
+            color: var(--accent);
+        }
+
+        .code-string {
+            color: var(--green);
+        }
+
+        .code-int {
+            color: var(--orange);
+        }
+
+        .about {
+            padding: 100px 6%;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .about-box {
+            padding: 25px;
+            border: 1px solid var(--border);
+            background-color: var(--panel);
+            margin-bottom: 25px;
+        }
+
+        .about-text {
+            font-family: "JetBrains Mono", monospace;
+            font-size: 48px;
+            color: var(--accent);
+        }
+
+        .process {
+            padding: 100px 6%;
+            gap: 20px;
+        }
+
+        .process-grid {
+            gap: 20px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-auto-rows: 1fr;
+            align-items: center;
+        }
+
+
+        .process-box {
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
+            background-color: var(--panel);
+            height: 100%;
+        }
+
+        .process-image {
+            width: 100%;
+            max-width: 500px;
+            height: 220px;
+            object-fit: contain;
+            margin: 20px 0px;
+        }
+
+
+        .project-toolbar {
+            display: flex;
+            margin-top: 20px;
+        }
+
+        .project-tool {
+            padding: 5px;
+            margin-right: 10px;
+            border: 1px solid var(--border);
+            background-color: var(--panel);
+
+            font-family: "JetBrains Mono", monospace;
+            font-size: 12px;
+            color: var(--muted);
+            aspect-ratio: 3 / 1;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tool-python {
+            color: var(--green);
+        }
+        .tool-cpp {
+            color: var(--accent);
+        }
+        .tool-sql {
+            color: var(--orange);
+        }
+        .tool-powerbi {
+            color: var(--orange);
+        }
+
+        .results {
+            scroll-margin-top: 80px;
+            padding: 30px 6%;
+            gap: 100px;
+            align-items: center;
+        }
+
+        .return {
+            margin: 30px 6%;
+            padding: 25px;
+            border: 1px solid var(--border);
+            background-color: var(--panel);
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .return-box {
+            margin-top: 20px;
+            padding: 25px;
+            border: 1px solid var(--border);
+            background-color: var(--panel);
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            text-decoration: none;
+        }
+
+        .image {
+            max-width: 300px;
+            max-height: 300px;
+            object-fit: contain;
+            margin: 20px 0px;
+        }
+
+        .connect-box {
+            max-width: 300px;
+            padding: 15px;
+            border: 1px solid var(--border);
+            background-color: var(--panel);
+            display: flex;
+            text-decoration: none;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .connect-icon {
+            width:32px;
+            height:32px;
+            color: var(--muted);
+            text-decoration: none;
+        }
+
+        .connect-github:hover {
+            border-color: var(--purple);
+        }
+
+        .connect-github:hover p {
+            color: var(--purple);
+        }
+
+        .connect-github:hover .connect-icon {
+            color: var(--purple);
+        }
+
+
+    </style>
+</head>
+
+<!-- main body -->
+<body>
+    
+    <!-- headers -->
+    <nav>
+        <a class="nav-name" href="#introduction">
+            wordle_solver.py
+        </a>
+
+        <div class="nav-links">
+            <a href="#about">/about</a>
+            <a href="#process">/process</a>
+            <a href="#result">/results</a>
+            <a href="../../index.html">/back</a>
+        </div>
+    </nav>
+
+
+    <!-- main body -->
+    <main>
+
+        <!-- introduction -->
+        <section class="introduction" id="introduction">
+            <div>
+                <div class="section-label">> project.load(wordle_solver)</div>
+                <h1>Wordle Solver</h1>
+            </div>
+            <img class="image" src="images/wordle.png">
+
+            <p class="introduction-description">
+                Automatically solves Wordle puzzles.<br><br>Utilising a contraint-based Wordle algorithm with a maximum distinct-feedback heuristic to minimise the number of guesses.
+            </p>
+
+            <div class="project-toolbar">
+                <div class="project-tool tool-python">
+                    Python
+                </div>
+            </div>
+
+            <a class="connect-box connect-github button" href="https://github.com/Sampleless0/Wordle-Solver">
+                <svg class="connect-icon" width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M56.7937 84.9688C44.4187 83.4688 35.7 74.5625 35.7 63.0313C35.7 58.3438 37.3875 53.2813 40.2 49.9063C38.9812 46.8125 39.1687 40.25 40.575 37.5313C44.325 37.0625 49.3875 39.0313 52.3875 41.75C55.95 40.625 59.7 40.0625 64.2937 40.0625C68.8875 40.0625 72.6375 40.625 76.0125 41.6563C78.9187 39.0313 84.075 37.0625 87.825 37.5313C89.1375 40.0625 89.325 46.625 88.1062 49.8125C91.1062 53.375 92.7 58.1563 92.7 63.0313C92.7 74.5625 83.9812 83.2813 71.4187 84.875C74.6062 86.9375 76.7625 91.4375 76.7625 96.5938L76.7625 106.344C76.7625 109.156 79.1062 110.75 81.9187 109.625C98.8875 103.156 112.2 86.1875 112.2 65.1875C112.2 38.6563 90.6375 17 64.1062 17C37.575 17 16.2 38.6562 16.2 65.1875C16.2 86 29.4187 103.25 47.2312 109.719C49.7625 110.656 52.2 108.969 52.2 106.438L52.2 98.9375C50.8875 99.5 49.2 99.875 47.7 99.875C41.5125 99.875 37.8562 96.5 35.2312 90.2188C34.2 87.6875 33.075 86.1875 30.9187 85.9063C29.7937 85.8125 29.4187 85.3438 29.4187 84.7813C29.4187 83.6563 31.2937 82.8125 33.1687 82.8125C35.8875 82.8125 38.2312 84.5 40.6687 87.9688C42.5437 90.6875 44.5125 91.9063 46.8562 91.9063C49.2 91.9063 50.7 91.0625 52.8562 88.9063C54.45 87.3125 55.6687 85.9063 56.7937 84.9688Z" fill="currentColor"/>
+                </svg>
+                <p>Open Github Repository</p>
+            </a>
+
+        </section>
+
+       
+
+        <!-- about -->
+        <section class="about" id="about">
+            <div class="section-label">> about.load()</div>
+            <div class="about-box">
+                <h2>The Problem</h2>
+                <p>
+                    There is a lot of 5 letter words, roughly 13000. What is the best way to reduce that number to 1 with as little guesses as possible.
+                </p>
+            </div>
+
+
+            <div class="about-box">
+                <h2 class="accent-text">The Solution</h2>
+                <p>
+                    By choosing a word based on maximising the number of words it can remove based on the Wordle result, it will maximise the number of words removed per guess.
+                </p>
+            </div>
+
+        </section>
+
+
+
+        <!-- process -->
+        <section class="process" id="process">
+            <div class="section-label">> process.show()</div>
+            <div class="process-grid">
+                <div class="process-box">
+                    <h2>Data</h2>
+                    <img class="process-image" src="images/words.png" alt="Dataset">
+                    <p>
+                        By having all the words available in a dataset, the best option can be filtered much easier.
+                    </p>
+
+                </div>
+                <div class="process-box">
+                    <h2>Select Best Word</h2>
+                    <img class="process-image" src="images/select.png" alt="Dataset">
+                    <p>
+                        By determining the number of distinct paths each word can filter to, the algorithm chooses the result with the word that branches to the most paths.
+                    </p>
+                </div>
+                <div class="process-box">
+                    <h2>Filter</h2>
+                    <img class="process-image" src="images/filter.png" alt="Dataset">
+                    <p>
+                        Filter the options based on Wordle results, however all words are still considered when used as a filter for the next run.
+                    </p>
+                </div>
+                <div class="process-box">
+                    <h2>Implementation</h2>
+                    <img class="process-image" src="images/read.png" alt="Dataset">
+                    <p>
+                        While primitive, it allows for fast lookups to the colour of the tiles while increases speed.
+                    </p>
+                </div>
+            </div>
+            
+        </section>
+
+
+
+        <!-- results -->
+        <section class="results" id="result">
+            <div>
+                <div class="section-label">> results.load()</div>
+                <h2>Results Achieved</h2>
+            </div>
+
+            <div class="process-box">
+                <h2>Averages around 4 attempts</h2>
+                <img class="process-image" src="images/results.png" alt="Dataset">
+                <p>
+                    This is a small test, but multiple small tests has been conducted showing similar results, with a high word find rate around 3 to 4 attempts. It shows that the project has led to a working algorithm.
+                </p>
+            </div>
+
+        </section>
+
+        <!-- code part results -->
+        <section class="code-window">
+            <div class="code-window-top">
+                <div class="code-dot"></div>
+                <div class="code-dot"></div>
+                <div class="code-dot"></div>
+
+                <span class="code-filename">results.json</span>
+            </div>
+
+
+
+<pre class="code-text">
+
+    {
+        <span class="code-classname">"what_worked"</span> : [
+            <span class="code-string">"The python program is able to read the status on the Wordle website"</span>,
+            <span class="code-string">"The Wordle Solver algorithm is able to succeed on average of 3 to 4 attempts per round"</span>,
+            <span class="code-string">"Nearing world record attempts of 3.42 with an average of between 3 to 4"</span>
+        ],
+
+        <span class="code-classname">"knowledge_learnt"</span> : [
+            <span class="code-string">"Designing my own algorithms and how they differ from each other"</span>,
+            <span class="code-string">"How to manage basic screen recognition"</span>
+        ]
+    }
+
+</pre>
+
+        </section>
+
+
+
+        <!-- back -->
+        <section class="return">
+            <div>
+                <div class="section-label">> project.unload()</div>
+                <h2>Let's go back</h2>
+            </div>
+           
+                <a class="return-box button" href="../../index.html">
+                    <p>< Back</p>
+                </a>
+                
+            </div>
+
+        </section>
+
+
+    </main>
+
+</body>
+
+
+</html>
