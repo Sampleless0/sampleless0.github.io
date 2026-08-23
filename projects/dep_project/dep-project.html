@@ -116,25 +116,14 @@
             transform: translateY(-4px);
         }
 
-        .button:hover .tool-python {
-            color: var(--green);
-        }
-        .button:hover .tool-cpp {
-            color: var(--accent);
-        }
-        .button:hover .tool-sql {
-            color: var(--orange);
-        }
-        .button:hover .tool-powerbi {
-            color: var(--orange);
-        }
+        
 
 
         .introduction {
             padding: 100px 6%;
             display: grid;
             grid-template-columns: 1.1fr 0.9fr;
-            gap: 70px;
+            gap: 40px;
             align-items: center;
         }
 
@@ -194,23 +183,15 @@
         .about {
             padding: 100px 6%;
             grid-template-columns: 1.1fr 0.9fr;
-            gap: 70px;
+            gap: 40px;
             align-items: center;
         }
-
-        .about-boxes {
-            padding: 50px 0px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            align-items: center;
-        }
-
 
         .about-box {
             padding: 25px;
             border: 1px solid var(--border);
             background-color: var(--panel);
+            margin-bottom: 25px;
         }
 
         .about-text {
@@ -219,26 +200,36 @@
             color: var(--accent);
         }
 
-        .project {
+        .process {
             padding: 100px 6%;
-            gap: 70px;
+            gap: 20px;
+        }
+
+        .process-grid {
+            gap: 20px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-auto-rows: 1fr;
             align-items: center;
         }
 
-        .project-box {
+
+        .process-box {
             padding: 25px;
             margin-bottom: 20px;
             border: 1px solid var(--border);
             background-color: var(--panel);
-            display: flex;
-            justify-content: space-between;
-            color: var(--text);
-            text-decoration: none;
+            height: 100%;
         }
 
-        .project-image {
-            flex: 0 0 30%;
+        .process-image {
+            width: 100%;
+            max-width: 500px;
+            height: 220px;
+            object-fit: contain;
+            margin: 20px 0px;
         }
+
 
         .project-toolbar {
             display: flex;
@@ -261,13 +252,27 @@
             justify-content: center;
         }
 
-        .skills {
+        .tool-python {
+            color: var(--green);
+        }
+        .tool-cpp {
+            color: var(--accent);
+        }
+        .tool-sql {
+            color: var(--orange);
+        }
+        .tool-powerbi {
+            color: var(--orange);
+        }
+
+        .results {
+            scroll-margin-top: 80px;
             padding: 30px 6%;
-            gap: 70px;
+            gap: 100px;
             align-items: center;
         }
 
-        .connect {
+        .return {
             margin: 30px 6%;
             padding: 25px;
             border: 1px solid var(--border);
@@ -277,71 +282,23 @@
             text-align: center;
         }
 
-        .connect-boxes {
-            padding: 50px 0px;
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 20px;
-            align-items: center;
-        }
-
-        .connect-box {
+        .return-box {
+            margin-top: 20px;
             padding: 25px;
             border: 1px solid var(--border);
             background-color: var(--panel);
             display: flex;
+            justify-content: center;
+            width: 100%;
             text-decoration: none;
         }
 
-        .connect-email:hover {
-            border-color: var(--red);
+        .image {
+            max-width: 300px;
+            max-height: 300px;
+            object-fit: contain;
+            margin: 20px 0px;
         }
-
-        .connect-email:hover p {
-            color: var(--red);
-        }
-
-        .connect-github:hover {
-            border-color: var(--purple);
-        }
-
-        .connect-github:hover p {
-            color: var(--purple);
-        }
-
-        .connect-linkedin:hover {
-            border-color: var(--accent);
-        }
-
-        .connect-linkedin:hover p {
-            color: var(--accent);
-        }
-
-        .connect-instagram:hover {
-            border-color: var(--pink);
-        }
-
-        .connect-instagram:hover p {
-            color: var(--pink);
-        }
-
-        .connect-discord:hover {
-            border-color: var(--blurple);
-        }
-
-        .connect-discord:hover p {
-            color: var(--blurple);
-        }
-
-        .connect-youtube:hover {
-            border-color: var(--red);
-        }
-
-        .connect-youtube:hover p {
-            color: var(--red);
-        }
-
-        
 
     </style>
 </head>
@@ -371,181 +328,107 @@
         <section class="introduction" id="introduction">
             <div>
                 <div class="section-label">> project.load(dep_project)</div>
-                <h1>Data.<br><span class="accent-text">Decoded.</span></h1>
+                <h1>DEP Final Project</h1>
             </div>
-
-            <p></p>
+            <img class="image" src="images/vest.png">
 
             <p class="introduction-description">
-                Hello!, I am Dave, an AI and Data Engineering student from Nanyang Polytechnic. I am passionate about Machine Learning and Data Analysis.
+                Fall detection using neural networks<br><br>Utilising a sensor based system to detect worker falls and alert nearby users.
             </p>
 
-        </section>
-
-        <!-- code part -->
-        <section class="code-window">
-            <div class="code-window-top">
-                <div class="code-dot"></div>
-                <div class="code-dot"></div>
-                <div class="code-dot"></div>
-
-                <span class="code-filename">profile.py</span>
+            <div class="project-toolbar">
+                <div class="project-tool tool-python">
+                    Python
+                </div>
+                <div class="project-tool tool-cpp">
+                    C++
+                </div>
+                <div class="project-tool tool-sql">
+                    SQL
+                </div>
             </div>
 
-
-
-<pre class="code-text">
-
-    <span class="code-class">class</span> <span class="code-classname">Student</span>:
-        
-        name = <span class="code-string">"Dave Lee"</span>
-
-        age = <span class="code-int">18</span>
-
-        study = <span class="code-string">"AI and Data Engineering in Nanyang Polytechnic"</span>
-
-        interest = [
-            <span class="code-string">"Machine Learning"</span>,
-            <span class="code-string">"Data Analysis"</span>,
-            <span class="code-string">"Neural Networks"</span>
-        ]
-
-        currently_learning = [
-            <span class="code-string">"Python"</span>,
-            <span class="code-string">"SQL"</span>,
-            <span class="code-string">"Scikit-learn"</span>
-        ]
-
-</pre>
-
         </section>
 
+       
 
-
-        <!-- about me -->
+        <!-- about -->
         <section class="about" id="about">
-            <div>
-                <div class="section-label">> about.load()</div>
-                <h2>Behind the Data</h2>
+            <div class="section-label">> about.load()</div>
+            <div class="about-box">
+                <h2>The Problem</h2>
+                <p>
+                    Given a complex workplace environment, construction workers may slip and fall occationally. While accidents may occur, sometimes it is due to the facility while may be dismissed.
+                </p>
             </div>
 
-            <p>I am currently studying AI & Data Enginnering, where I'm developing a foundation in programming, data analysis and machine learning.<br><br>This portfolio documents the projects, experiments and lessons I have learnt throughout my years and how they shape how I think and approach problems.</p>
+
+            <div class="about-box">
+                <h2 class="accent-text">The Solution</h2>
+                <p>
+                    To reduce the number of falls, detection and monitoring of worker falls are used to figure out if the number of falls are abnormal, and if a fall occurs, other workers are able to assist the one that fell.
+                </p>
+            </div>
+
+        </section>
+
+
+
+        <!-- process -->
+        <section class="process" id="process">
+            <div class="section-label">> process.show()</div>
+            <div class="process-grid">
+                <div class="process-box">
+                    <h2>Data</h2>
+                    <img class="process-image" src="images/dataset.png" alt="Dataset">
+                    <p>
+                        My team collected Acceleration and Gyroscopic Data at 50Hz with the Nesso N1 to train the model
+                    </p>
+
+                </div>
+                <div class="process-box">
+                    <h2>PreProcessing</h2>
+                    <img class="process-image" src="images/send.png" alt="Dataset">
+                    <p>
+                        Sending the Data over Bluetooth Low Energy (BLE) with packets of 5 readings to a local computer.
+                    </p>
+                </div>
+                <div class="process-box">
+                    <h2>Model</h2>
+                    <img class="process-image" src="images/model.png" alt="Dataset">
+                    <p>
+                        Using a 1 Dimension Convolution Neural Network, with packets of 4 seconds with 50% overlap, the model is able to make a 3 state classification prediction confidence in which the highest confidence value is chosen as the state.
+                    </p>
+                </div>
+                <div class="process-box">
+                    <h2>Implementation</h2>
+                    <img class="process-image" src="images/vest.png" alt="Dataset">
+                    <p>
+                        Workers will strap a small black box onto their safety vests which track their movement patterns to determine a fall. An alert would also result in a buzz and a screen flash if a worker nearby fell.
+                    </p>
+                </div>
+            </div>
             
-            <div class="about-boxes">
-                <div class="about-box">
-                    <h2 class="about-text">3</h2>
-                    <p>Projects Done</p>
-                </div>
-                <div class="about-box">
-                    <h2 class="about-text">3</h2>
-                    <p>Datasets Explored</p>
-                </div>
-                <div class="about-box">
-                    <h2 class="about-text">3</h2>
-                    <p>ML Models Trained</p>
-                </div>
-                <div class="about-box">
-                    <h2 class="about-text">∞</h2>
-                    <p>Things Left to Learn</p>
-                </div>
-            </div>
-
         </section>
 
 
 
-        <!-- projects -->
-        <section class="project" id="project">
+        <!-- results -->
+        <section class="results" id="result">
             <div>
-                <div class="section-label">> projects.show()</div>
-                <h2>Selected Projects</h2>
-            </div>
-
-            <a class="project-box button" href="projects/dep-project.html">
-                <div>
-                    <h2>
-                        DEP Final Project
-                    </h2>
-                    <p>
-                        A project which involves developing a neural network to detect falls and alert nearby authorities.
-                    </p>
-                    <div class="project-toolbar">
-                        <div class="project-tool tool-python">
-                            Python
-                        </div>
-                        <div class="project-tool tool-cpp">
-                            C++
-                        </div>
-                        <div class="project-tool tool-sql">
-                            SQL
-                        </div>
-                    </div>
-                </div>
-                <div class="project-image">
-                    picture goes here
-                </div>
-            </a>
-
-            <a class="project-box button" href="projects/dpv-project.html">
-                <div>
-                    <h2>
-                        DPV MRT Analysis
-                    </h2>
-                    <p>
-                        A project that analyses MRT traffic over the course of a month to analyse and visualise the results.
-                    </p>
-                    <div class="project-toolbar">
-                        <div class="project-tool tool-python">
-                            Python
-                        </div>
-                        <div class="project-tool tool-powerbi">
-                            Power BI
-                        </div>
-                    </div>
-                </div>
-                <div class="project-image">
-                    picture goes here
-                </div>
-            </a>
-
-            <a class="project-box button" href="projects/wordle-project.html">
-                <div>
-                    <h2>
-                        Wordle Solver
-                    </h2>
-                    <p>
-                        Automatically solves Wordle Puzzles using algorithms.
-                    <div class="project-toolbar">
-                        <div class="project-tool tool-python">
-                            Python
-                        </div>
-                    </div>
-                </div>
-                <div class="project-image">
-                    picture goes here
-                </div>
-            </a>
-
-        </section>
-
-
-
-        <!-- skills -->
-        <section class="skills">
-            <div>
-                <div class="section-label">> skills.load()</div>
-                <h2>Skills Acquired</h2>
+                <div class="section-label">> results.load()</div>
+                <h2>Results Achieved</h2>
             </div>
         </section>
 
-        <!-- code part skills -->
+        <!-- code part results -->
         <section class="code-window">
             <div class="code-window-top">
                 <div class="code-dot"></div>
                 <div class="code-dot"></div>
                 <div class="code-dot"></div>
 
-                <span class="code-filename">skills.json</span>
+                <span class="code-filename">results.json</span>
             </div>
 
 
@@ -553,24 +436,22 @@
 <pre class="code-text">
 
     {
-        <span class="code-classname">"languages"</span> : [
-            <span class="code-string">"Python"</span>,
-            <span class="code-string">"SQL"</span>,
-            <span class="code-string">"C++ (Currently Learning)"</span>,
-            <span class="code-string">"Rust (Currently Learning)"</span>
+        <span class="code-classname">"what_worked"</span> : [
+            <span class="code-string">"Nesso N1 able to transmit data to the local computer"</span>,
+            <span class="code-string">"1D CNN neural network runs with a close to 95% accuracy"</span>,
+            <span class="code-string">"Data successfully stored in Supabase"</span>,
+            <span class="code-string">"Data can be visualised on a dashboard"</span>
         ],
 
-        <span class="code-classname">"data"</span> : [
-            <span class="code-string">"Pandas"</span>,
-            <span class="code-string">"Numpy"</span>,
-            <span class="code-string">"Power BI"</span>,
-            <span class="code-string">"Data Visualisation"</span>
+        <span class="code-classname">"what_did_not_work"</span> : [
+            <span class="code-string">"1D CNN neural network fails to scan for near-miss"</span>,
+            <span class="code-string">"No handling of connection lost in BLE"</span>
         ],
 
-        <span class="code-classname">"ai"</span> : [
-            <span class="code-string">"Machine Learning"</span>,
-            <span class="code-string">"Reinforcement Learning"</span>,
-            <span class="code-string">"Neural Networks (Currently Learning)"</span>
+        <span class="code-classname">"knowledge_learnt"</span> : [
+            <span class="code-string">"Neural Networks"</span>,
+            <span class="code-string">"Data Pipelines"</span>,
+            <span class="code-string">"Software Architecture"</span>
         ]
     }
 
@@ -580,49 +461,17 @@
 
 
 
-        <!-- contact -->
-        <section class="connect" id="connect">
+        <!-- back -->
+        <section class="return">
             <div>
-                <div class="section-label">> contact.send()</div>
-                <h2>Let's Connect</h2>
+                <div class="section-label">> project.unload()</div>
+                <h2>Let's go back</h2>
             </div>
-            <div class="connect-boxes">
-                <a class="connect-box connect-email button" href="mailto:sampleless0@gmail.com">
-                    <div>
-                        image
-                    </div>
-                    <p>Email</p>
+           
+                <a class="return-box button" href="../../index.html">
+                    <p>< Back</p>
                 </a>
-                <a class="connect-box connect-github button" href="https://github.com/Sampleless0">
-                    <div>
-                        image
-                    </div>
-                    <p>Github</p>
-                </a>
-                <a class="connect-box connect-linkedin button" href="https://www.linkedin.com/in/dave-lee-zheng-feng-83629b420/">
-                    <div>
-                        image
-                    </div>
-                    <p>LinkedIn</p>
-                </a>
-                <a class="connect-box connect-instagram button" href="https://www.instagram.com/sampleless/">
-                    <div>
-                        image
-                    </div>
-                    <p>Instagram</p>
-                </a>
-                <a class="connect-box connect-discord button" href="https://discord.com/users/806082338155921458">
-                    <div>
-                        image
-                    </div>
-                    <p>Discord</p>
-                </a>
-                <a class="connect-box connect-youtube button" href="https://www.youtube.com/@sambelless">
-                    <div>
-                        image
-                    </div>
-                    <p>Youtube</p>
-                </a>
+                
             </div>
 
         </section>

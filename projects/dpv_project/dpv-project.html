@@ -1,1 +1,530 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>Dave Lee - DPV MRT Analysis</title>
+
+    <!-- css style formats -->
+    <style>
+        :root {
+            --background: #0b0d0f;
+            --panel: #111417;
+            --panel-2: #15191d;
+            --border: #272c31;
+            --text: #f1f3f5;
+            --muted: #8b949e;
+            --accent: #7dd3fc;
+            --green: #86efac;
+            --purple: #c4b5fd;
+            --orange: #fdba74;
+            --red: #ea4335;
+            --pink: #e1306c;
+            --blurple: #5865f2;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            font-family: "Inter", sans-serif;
+            line-height: 1.6;
+        }
+
+        
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 6%;
+            border-bottom: 1px solid var(--border);
+            background-color: var(--panel);
+            backdrop-filter: blur(14px);
+        }
+
+        .nav-name {
+            font-family: "JetBrains Mono", monospace;
+            font-size: 14px;
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .nav-links a {
+            color: var(--muted);
+            text-decoration: none;
+        }
+
+        .nav-links a:hover {
+            color: var(--text)
+        }
+
+
+        .section-label {
+            font-family: "JetBrains Mono", monospace;
+            font-size: 12px;
+            color: var(--green);
+            margin-bottom: 28px;
+        }
+
+        .accent-text {
+            color: var(--accent)
+        }
+
+        h1 {
+            font-size: clamp(48px, 7vh, 92px);
+            line-height: 1;
+            max-width: 800px;
+            margin-bottom: 28px;
+        }
+
+        h2 {
+            font-size: clamp(34px, 5vw, 58px);
+        }
+
+        p {
+            color: var(--muted);
+            text-decoration: none;
+        }
+
+        .button {
+            transition: 0.2s;
+        }
+
+        .button:hover {
+            border-color: #48515a;
+            transform: translateY(-4px);
+        }
+
+        
+
+
+        .introduction {
+            padding: 100px 6%;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .introduction-description {
+            grid-column: 1 / -1;
+        }
+
+        .code-window {
+            border: 1px solid var(--border);
+            background-color: var(--panel);
+            margin: 5px 6%;
+        }
+
+        .code-window-top {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .code-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #444;
+        }
+
+        .code-filename {
+            margin-left: 8px;
+            color: var(--muted);
+            font: 11px "JetBrains Mono", monospace;
+        }
+
+        .code-text {
+            font-family: "JetBrains Mono", monospace;
+            font-size: 14px;
+            color: var(--text);
+        }
+
+        .code-class {
+            color: var(--purple);
+        }
+
+        .code-classname {
+            color: var(--accent);
+        }
+
+        .code-string {
+            color: var(--green);
+        }
+
+        .code-int {
+            color: var(--orange);
+        }
+
+        .about {
+            padding: 100px 6%;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .about-box {
+            padding: 25px;
+            border: 1px solid var(--border);
+            background-color: var(--panel);
+            margin-bottom: 25px;
+        }
+
+        .about-text {
+            font-family: "JetBrains Mono", monospace;
+            font-size: 48px;
+            color: var(--accent);
+        }
+
+        .process {
+            padding: 100px 6%;
+            gap: 20px;
+        }
+
+        .process-grid {
+            gap: 20px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-auto-rows: 1fr;
+            align-items: center;
+        }
+
+
+        .process-box {
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
+            background-color: var(--panel);
+            height: 100%;
+        }
+
+        .process-image {
+            width: 100%;
+            max-width: 500px;
+            height: 220px;
+            object-fit: contain;
+            margin: 20px 0px;
+        }
+
+
+        .project-toolbar {
+            display: flex;
+            margin-top: 20px;
+        }
+
+        .project-tool {
+            padding: 5px;
+            margin-right: 10px;
+            border: 1px solid var(--border);
+            background-color: var(--panel);
+
+            font-family: "JetBrains Mono", monospace;
+            font-size: 12px;
+            color: var(--muted);
+            aspect-ratio: 3 / 1;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tool-python {
+            color: var(--green);
+        }
+        .tool-cpp {
+            color: var(--accent);
+        }
+        .tool-sql {
+            color: var(--orange);
+        }
+        .tool-powerbi {
+            color: var(--orange);
+        }
+
+        .results {
+            scroll-margin-top: 80px;
+            padding: 30px 6%;
+            gap: 100px;
+            align-items: center;
+        }
+
+        .return {
+            margin: 30px 6%;
+            padding: 25px;
+            border: 1px solid var(--border);
+            background-color: var(--panel);
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .return-box {
+            margin-top: 20px;
+            padding: 25px;
+            border: 1px solid var(--border);
+            background-color: var(--panel);
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            text-decoration: none;
+        }
+
+        .image {
+            max-width: 300px;
+            max-height: 300px;
+            object-fit: contain;
+            margin: 20px 0px;
+        }
+
+    </style>
+</head>
+
+<!-- main body -->
+<body>
+    
+    <!-- headers -->
+    <nav>
+        <a class="nav-name" href="#introduction">
+            dpv_mrt_analysis.py
+        </a>
+
+        <div class="nav-links">
+            <a href="#about">/about</a>
+            <a href="#process">/process</a>
+            <a href="#result">/results</a>
+            <a href="../../index.html">/back</a>
+        </div>
+    </nav>
+
+
+    <!-- main body -->
+    <main>
+
+        <!-- introduction -->
+        <section class="introduction" id="introduction">
+            <div>
+                <div class="section-label">> project.load(dpv_mrt_analysis)</div>
+                <h1>DPV MRT Analysis</h1>
+            </div>
+            <img class="image" src="images/mrt_project.png">
+
+            <p class="introduction-description">
+                Analysis into Singapore MRT traffic.<br><br>Utilising MRT traffic over a month to determine the best locations for F&B businesses.
+            </p>
+
+            <div class="project-toolbar">
+                <div class="project-tool tool-python">
+                    Python
+                </div>
+                <div class="project-tool tool-powerbi">
+                    Power BI
+                </div>
+            </div>
+
+        </section>
+
+       
+
+        <!-- about -->
+        <section class="about" id="about">
+            <div class="section-label">> about.load()</div>
+            <div class="about-box">
+                <h2>The Objective</h2>
+                <p>
+                    Given Singapore is a complex and competitive market, where are the best locations to start up a new F&B business?
+                </p>
+            </div>
+            
+            
+            <div class="about-box">
+                <h2>The Problem</h2>
+                <p>
+                    Data is limited, where utilising MRT is not the most accurate form of data analysis and precision.
+                </p>
+            </div>
+
+
+            <div class="about-box">
+                <h2 class="accent-text">The Solution</h2>
+                <p>
+                    Using the traffic flow of the MRT, as well as total footfall. To make a general estimation for probable locations that would function better for a new F&B business.
+            </div>
+
+        </section>
+
+
+
+        <!-- process -->
+        <section class="process" id="process">
+            <div class="section-label">> process.show()</div>
+            <div class="process-grid">
+                <div class="process-box">
+                    <h2>Data</h2>
+                    <img class="process-image" src="images/dataset.png" alt="Dataset">
+                    <p>
+                        I had to filter the dataset based on Traffic Enter and Exit to mapping regions by UAE District number.
+                    </p>
+
+                </div>
+                <div class="process-box">
+                    <h2>PreProcessing</h2>
+                    <img class="process-image" src="images/mrt_project.png" alt="Dataset">
+                    <p>
+                        Lim Chu Kang and Seletar are removed due to no MRT traffic to those locations, and each MRT station has the total footfall mapped out. 
+                    </p>
+                </div>
+                <div class="process-box">
+                    <h2>Analysis</h2>
+                    <img class="process-image" src="images/powerbi.png" alt="Dataset">
+                    <p>
+                        Using total traffic and traffic flow to determine the probable best locations to start a new F&B business.
+                    </p>
+                </div>
+                <div class="process-box">
+                    <h2>Insights</h2>
+                    <img class="process-image" src="images/insight.png" alt="Dataset">
+                    <img class="process-image" src="images/total.png" alt="Dataset">
+                    <p>
+                        Firstly, in the morning, traffic flows from the outskirts towards the city centre, likely due to people going to work. The opposite happens in the evening where people move out of the city centre towards the outskirts, likely going home.<br><br>Secondly, D19 (Serangoon Gardens, Hougang, Punggol) has by far the highest traffic with a total of 15.62 million commuters a month.
+                    </p>
+                </div>
+            </div>
+            
+        </section>
+
+
+
+        <!-- results -->
+        <section class="results" id="result">
+            <div>
+                <div class="section-label">> results.load()</div>
+                <h2>Results Achieved</h2>
+            </div>
+
+            <div class="process-box">
+                <h2>D19 (Serangoon Gardens, Hougang, Punggol)</h2>
+                <img class="process-image" src="images/d19.png" alt="Dataset">
+                <p>
+                    D19 has the highest footfall with 15.62 Million passengers per month on average. The traffic flow suggests that people leave D19 in the morning and return to D19 in the evening, allowing F&B businesses that target the evening rush, such as dinner-oriented or heavy meal oriented F&B businesses to be able to target people that come back in the evening.
+                </p>
+            </div>
+
+            <div class="process-box">
+                <h2>D01 (Serangoon Gardens, Hougang, Punggol)</h2>
+                <img class="process-image" src="images/d01.png" alt="Dataset">
+                <p>
+                    D01 has a very high morning traffic around 8am, likely due to people coming in for work. As it is located near the central business district, it suggests that a large number of the people who enter this district in the morning are people coming in for work. Hence it will benefit businesses who target morning commuters such as breakfast orientated F&B businesses or light meals and drinks.
+                </p>
+            </div>
+
+            <div class="process-box">
+                <h2>D05 (Serangoon Gardens, Hougang, Punggol)</h2>
+                <img class="process-image" src="images/d05.png" alt="Dataset">
+                <p>
+                    D05 also has a very high morning traffic like D01, but unlike D01, D05 also has a decent surge in entries near the evening around 6pm with 820K traffic inwards. This suggests that D05 also has good residential or evening related activities while still having a high morning commute likely due to work. Hence D05 would be a good location for businesses targeting both morning and evening related F&B businesses. Such as meal oriented or drinks based F&B business.
+                </p>
+            </div>
+
+            <div class="process-box">
+                <h2>Conclusion</h2>
+                <img class="process-image" src="images/conclusion.png" alt="Dataset">
+                <p>
+                    D05 is the general recommendation because it supports both morning and evening traffic, D01 benefits breakfast-orientated F&B business while D19 focuses on dinner orientated with high total footfall.
+                </p>
+            </div>
+
+
+
+        </section>
+
+        <!-- code part results -->
+        <section class="code-window">
+            <div class="code-window-top">
+                <div class="code-dot"></div>
+                <div class="code-dot"></div>
+                <div class="code-dot"></div>
+
+                <span class="code-filename">results.json</span>
+            </div>
+
+
+
+<pre class="code-text">
+
+    {
+        <span class="code-classname">"what_worked"</span> : [
+            <span class="code-string">""</span>,
+            <span class="code-string">""</span>,
+            <span class="code-string">""</span>,
+            <span class="code-string">""</span>
+        ],
+
+        <span class="code-classname">"what_did_not_work"</span> : [
+            <span class="code-string">""</span>,
+            <span class="code-string">"No handling of connection lost in BLE"</span>
+        ],
+
+        <span class="code-classname">"knowledge_learnt"</span> : [
+            <span class="code-string">"Neural Networks"</span>,
+            <span class="code-string">"Data Pipelines"</span>,
+            <span class="code-string">"Software Architecture"</span>
+        ]
+    }
+
+</pre>
+
+        </section>
+
+
+
+        <!-- back -->
+        <section class="return">
+            <div>
+                <div class="section-label">> project.unload()</div>
+                <h2>Let's go back</h2>
+            </div>
+           
+                <a class="return-box button" href="../../index.html">
+                    <p>< Back</p>
+                </a>
+                
+            </div>
+
+        </section>
+
+
+    </main>
+
+</body>
+
+
+<!-- javascript code -->
+
+
+
+</html>
