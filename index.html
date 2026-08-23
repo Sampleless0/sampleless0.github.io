@@ -18,6 +18,9 @@
             --green: #86efac;
             --purple: #c4b5fd;
             --orange: #fdba74;
+            --red: #ea4335;
+            --pink: #e1306c;
+            --blurple: #5865f2;
         }
 
         * {
@@ -52,10 +55,11 @@
             backdrop-filter: blur(14px);
         }
 
-        .nav_name {
+        .nav-name {
             font-family: "JetBrains Mono", monospace;
             font-size: 14px;
             color: var(--accent);
+            text-decoration: none;
         }
 
         .nav-links {
@@ -64,6 +68,11 @@
             font-family: "JetBrains Mono", monospace;
             font-size: 12px;
             color: var(--muted);
+        }
+
+        .nav-links a {
+            color: var(--muted);
+            text-decoration: none;
         }
 
         .nav-links a:hover {
@@ -95,6 +104,29 @@
 
         p {
             color: var(--muted);
+            text-decoration: none;
+        }
+
+        .button {
+            transition: 0.2s;
+        }
+
+        .button:hover {
+            border-color: #48515a;
+            transform: translateY(-4px);
+        }
+
+        .button:hover .tool-python {
+            color: var(--green);
+        }
+        .button:hover .tool-cpp {
+            color: var(--accent);
+        }
+        .button:hover .tool-sql {
+            color: var(--orange);
+        }
+        .button:hover .tool-powerbi {
+            color: var(--orange);
         }
 
 
@@ -160,7 +192,7 @@
         }
 
         .about {
-            padding: 30px 6%;
+            padding: 100px 6%;
             grid-template-columns: 1.1fr 0.9fr;
             gap: 70px;
             align-items: center;
@@ -200,6 +232,8 @@
             background-color: var(--panel);
             display: flex;
             justify-content: space-between;
+            color: var(--text);
+            text-decoration: none;
         }
 
         .project-image {
@@ -208,6 +242,7 @@
 
         .project-toolbar {
             display: flex;
+            margin-top: 20px;
         }
 
         .project-tool {
@@ -224,18 +259,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-
-        .tool-python:hover {
-            color: var(--green);
-        }
-
-        .tool-cpp:hover {
-            color: var(--accent);
-        }
-
-        .tool-sql:hover {
-            color: var(--orange);
         }
 
         .skills {
@@ -267,6 +290,55 @@
             border: 1px solid var(--border);
             background-color: var(--panel);
             display: flex;
+            text-decoration: none;
+        }
+
+        .connect-email:hover {
+            border-color: var(--red);
+        }
+
+        .connect-email:hover p {
+            color: var(--red);
+        }
+
+        .connect-github:hover {
+            border-color: var(--purple);
+        }
+
+        .connect-github:hover p {
+            color: var(--purple);
+        }
+
+        .connect-linkedin:hover {
+            border-color: var(--accent);
+        }
+
+        .connect-linkedin:hover p {
+            color: var(--accent);
+        }
+
+        .connect-instagram:hover {
+            border-color: var(--pink);
+        }
+
+        .connect-instagram:hover p {
+            color: var(--pink);
+        }
+
+        .connect-discord:hover {
+            border-color: var(--blurple);
+        }
+
+        .connect-discord:hover p {
+            color: var(--blurple);
+        }
+
+        .connect-youtube:hover {
+            border-color: var(--red);
+        }
+
+        .connect-youtube:hover p {
+            color: var(--red);
         }
 
         
@@ -279,14 +351,14 @@
     
     <!-- headers -->
     <nav>
-        <div class="nav_name">
+        <a class="nav-name" href="#introduction">
             dave_lee.py
-        </div>
+        </a>
 
         <div class="nav-links">
-            <a>/about</a>
-            <a>/projects</a>
-            <a>/contacts</a>
+            <a href="#about">/about</a>
+            <a href="#project">/projects</a>
+            <a href="#connect">/contacts</a>
         </div>
     </nav>
 
@@ -295,7 +367,7 @@
     <main>
 
         <!-- introduction -->
-        <section class="introduction">
+        <section class="introduction" id="introduction">
             <div>
                 <div class="section-label">> portfolio.load()</div>
                 <h1>Data.<br><span class="accent-text">Decoded.</span></h1>
@@ -350,7 +422,7 @@
 
 
         <!-- about me -->
-        <section class="about">
+        <section class="about" id="about">
             <div>
                 <div class="section-label">> about.load()</div>
                 <h2>Behind the Data</h2>
@@ -382,13 +454,13 @@
 
 
         <!-- projects -->
-        <section class="project">
+        <section class="project" id="project">
             <div>
                 <div class="section-label">> projects.show()</div>
                 <h2>Selected Projects</h2>
             </div>
 
-            <div class="project-box">
+            <a class="project-box button" href="projects/dep-project.html">
                 <div>
                     <h2>
                         DEP Final Project
@@ -411,35 +483,47 @@
                 <div class="project-image">
                     picture goes here
                 </div>
-            </div>
+            </a>
 
-            <div class="project-box">
+            <a class="project-box button" href="projects/dpv-project.html">
                 <div>
                     <h2>
-                        DEP Final Project
+                        DPV MRT Analysis
                     </h2>
                     <p>
-                        A project which involves developing a neural network to detect falls and alert nearby authorities.
+                        A project that analyses MRT traffic over the course of a month to analyse and visualise the results.
                     </p>
+                    <div class="project-toolbar">
+                        <div class="project-tool tool-python">
+                            Python
+                        </div>
+                        <div class="project-tool tool-powerbi">
+                            Power BI
+                        </div>
+                    </div>
                 </div>
                 <div class="project-image">
                     picture goes here
                 </div>
-            </div>
+            </a>
 
-            <div class="project-box">
+            <a class="project-box button" href="projects/wordle-project.html">
                 <div>
                     <h2>
-                        DEP Final Project
+                        Wordle Solver
                     </h2>
                     <p>
-                        A project which involves developing a neural network to detect falls and alert nearby authorities.
-                    </p>
+                        Automatically solves Wordle Puzzles using algorithms.
+                    <div class="project-toolbar">
+                        <div class="project-tool tool-python">
+                            Python
+                        </div>
+                    </div>
                 </div>
                 <div class="project-image">
                     picture goes here
                 </div>
-            </div>
+            </a>
 
         </section>
 
@@ -496,43 +580,48 @@
 
 
         <!-- contact -->
-        <section class="connect">
+        <section class="connect" id="connect">
             <div>
                 <div class="section-label">> contact.send()</div>
                 <h2>Let's Connect</h2>
             </div>
             <div class="connect-boxes">
-                <div class="connect-box">
+                <a class="connect-box connect-email button" href="mailto:sampleless0@gmail.com">
                     <div>
                         image
                     </div>
                     <p>Email</p>
-                </div>
-                <div class="connect-box">
+                </a>
+                <a class="connect-box connect-github button" href="https://github.com/Sampleless0">
                     <div>
                         image
                     </div>
                     <p>Github</p>
-                </div>
-                <div class="connect-box">
+                </a>
+                <a class="connect-box connect-linkedin button" href="https://www.linkedin.com/in/dave-lee-zheng-feng-83629b420/">
                     <div>
                         image
                     </div>
                     <p>LinkedIn</p>
-                </div>
-                <div class="connect-box">
+                </a>
+                <a class="connect-box connect-instagram button" href="https://www.instagram.com/sampleless/">
                     <div>
                         image
                     </div>
                     <p>Instagram</p>
-                </div>
-                <div class="connect-box">
+                </a>
+                <a class="connect-box connect-discord button" href="https://discord.com/users/806082338155921458">
                     <div>
                         image
                     </div>
                     <p>Discord</p>
-                </div>
-                <div class="connect-box">c</div>
+                </a>
+                <a class="connect-box connect-youtube button" href="https://www.youtube.com/@sambelless">
+                    <div>
+                        image
+                    </div>
+                    <p>Youtube</p>
+                </a>
             </div>
 
         </section>
